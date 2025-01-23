@@ -18,6 +18,11 @@ app.use(express.urlencoded({ extended : true}));
 app.use(express.static("public"));
 app.use(cookieParser());
 
+//route import
+const userRoute = require('./routes/user.routes.js');
+
+//User routes
+app.use('/api/v1/users', userRoute);
 
 db();
 uploadResult();
