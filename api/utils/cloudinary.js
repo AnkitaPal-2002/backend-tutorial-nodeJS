@@ -1,5 +1,8 @@
-const cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
+
+//dotenv configuration
+require('dotenv').config();
 
 
  // Configuration
@@ -11,19 +14,42 @@ const fs = require('fs');
 
 const uploadOnCloudinary = async (localFilePath) =>{
     try{
+        console.log("localpath: "+localFilePath);
+
+        //console.log(fs.existsSync(localFilePath))
+
+        if (!fs.existsSync(localFilePath)) {
+            console.error("File not found:", localFilePath);
+            //return null;
+        }
+        
+        //Check if a local file path is provided
         if(!localFilePath){
             console.error("No local file path provided");
             return;
         }
 
+        //console.log(cloudinary.config());
+        
+        //console.log("Hi");
+        
         //Upload the file on cloudinary
-        const response = await cloudinary.uploader.upload(localFilePath, {
-            resource_type: "auto"
-        })
+        // Upload an image
+     const uploadResult = await cloudinary.uploader
+     .upload(
+         localFilePath, {
+             resource_type: "auto"
+         }
+     )
+
+     console.log("File has been uploaed successfully", uploadResult.url);
+     fs.unlinkSync(localFilePath);
+     return uploadResult;
+
 
         //File has been uploaed successfully
-        console.log("File has been uploaed successfully", response.url);
-        return response;
+        // console.log("File has been uploaed successfully", response.url);
+        // return response;
         
     }catch(e){
         fs.unlinkSync(localFilePath) //remove the locally saved temporary file as the upload operation got failed

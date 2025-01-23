@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+require('dotenv').config();
 
 
 const userSchema = new mongoose.Schema({
@@ -68,7 +69,7 @@ userSchema.methods.generateAccessToken = async function(){
         fullname: this.fullname,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: ACCESS_TOKEN_EXPIRY}
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY}
     )
 }
 
@@ -80,9 +81,11 @@ userSchema.methods.generateRefreshToken = async function(){
         fullname: this.fullname,
     },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: REFRESH_TOKEN_EXPIRY}
+    { expiresIn: process.env.REFRESH_TOKEN_EXPIRY}
     )
 
 }
 
-export const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
