@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
- 
   "scripts": {
     "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sredmond/apiresponse": "^2.0.2-1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
   }
 }
