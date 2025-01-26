@@ -4,7 +4,7 @@ const upload = require('../middleware/multer.middleware.js')
 const verifyJWT = require('../middleware/auth.middleware.js')
 
 // Import User controller
-const {registerUser, loginUser, loggedOutUser} = require ('../controllers/user.controllers.js');
+const {registerUser, loginUser, loggedOutUser, refreshAccessToken} = require ('../controllers/user.controllers.js');
 
 //const loginUser = require ('../controllers/user.controllers.js').loginUser;
 
@@ -29,5 +29,6 @@ router.post('/login', loginUser);
 //secured routes 
 router.post('/logout', verifyJWT, loggedOutUser)
 
+router.post('/refresh-token', refreshAccessToken)
 
 module.exports = router;
